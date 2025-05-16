@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Environment variables
+.env
+
+# Ignore all files in the .venv directory
+.venv/*
+
+# Ignore Logs
+/logs/*
+
+

@@ -1,0 +1,24 @@
+{
+  "state": {
+    "current_phase": "START",
+    "pending_user_action": null,
+    "phase_history": [],
+    "user_input_idea": null,
+    "analyst_brainstorming_summary_md": null,
+    "analyst_research_prompt_draft_md": null,
+    "analyst_research_findings_md": null,
+    "project_brief_draft_md": null,
+    "project_brief_md": null,
+    "prd_draft_md": null,
+    "prd_md": null,
+    "epics_draft_md": null,
+    "epics_md": null,
+    "architecture_docs_draft_md": null,
+    "architecture_docs_md": null,
+    "posm_po_validation_summary_md": null,
+    "all_stories_draft_md": null,
+    "all_stories_md": null,
+    "user_feedback_content": null,
+    "last_agent_output": null
+  }
+}
