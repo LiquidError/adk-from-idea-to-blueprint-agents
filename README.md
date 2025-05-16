@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../banner.png" alt="Project Banner: AI Agents Built My Product Plan! (Google ADK - PRD and product lifecycle Automation)" width="600"/>
+  <img src="banner.png" alt="Project Banner: AI Agents Built My Product Plan! (Google ADK - PRD and product lifecycle Automation)" width="600"/>
 </div>
 
 # AI Agents Built My Product Plan! (Google ADK - PRD and product lifecycle Automation)
