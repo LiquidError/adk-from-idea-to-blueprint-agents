@@ -1,5 +1,5 @@
 [project]
-name = "adk-from-idea-to-blueprint-agents   "
+name = "adk-from-idea-to-blueprint-agents"
 version = "0.1.0"
 description = "Google ADK Agents PRD orchestration and more v1"
 readme = "README.md"
