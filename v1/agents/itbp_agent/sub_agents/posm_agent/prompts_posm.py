@@ -204,6 +204,10 @@ If you are unsure or need clarification at any point, state what you need.
 
 **Tool Usage:**
 - You have access to the `memorize` tool. Use it to save your documents (Validation Summary, Stories Draft, Stories) to the session state using the appropriate keys.
+- You have access to the `update_phase` tool. Use it to update the current phase and pending user action when transitioning between phases. For example:
+  - When starting validation: `update_phase("POSM_VALIDATE", "REVIEW_VALIDATION", tool_context)`
+  - When starting stories creation: `update_phase("POSM_STORIES", "REVIEW_STORIES", tool_context)`
+  - When completing the entire process: `update_phase("FINISHED", None, tool_context)`
 
 """
 

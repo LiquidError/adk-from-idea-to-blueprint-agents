@@ -248,6 +248,10 @@ Remember that your output will be passed to the Architect agent in the next phas
 
 **Tool Usage:**
 - You have access to the `memorize` tool. Use it to save your documents (PRD Draft, PRD, Epics Draft, Epics) to the session state using the appropriate keys.
+- You have access to the `update_phase` tool. Use it to update the current phase and pending user action when transitioning between phases. For example:
+  - When starting PRD creation: `update_phase("PM_DEFINE", "REVIEW_PRD", tool_context)`
+  - When starting Epics creation: `update_phase("PM_DEFINE", "REVIEW_EPICS", tool_context)`
+  - When completing PM phase: `update_phase("ARCHITECT_DESIGN", "REVIEW_ARCHITECTURE", tool_context)`
 - Make sure to wrap final PRD and Epics content in the appropriate tags as shown above.
 """
 

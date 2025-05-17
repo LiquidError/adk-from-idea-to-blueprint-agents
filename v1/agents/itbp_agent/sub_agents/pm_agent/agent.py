@@ -12,7 +12,7 @@ into structured requirements that will guide the technical implementation.
 """
 from google.adk.agents import Agent
 from .prompts_pm import get_pm_master_instructions
-from ...tools.memory import memorize
+from ...tools.memory import memorize, update_phase
 from ...shared_libraries.types import PRD, Epics, json_response_config
 
 # Import templates
@@ -28,7 +28,7 @@ prd_agent = Agent(
 Use the following template as a guide:
 
 {get_prd_template_markdown()}
-    """,    
+    """,
     disallow_transfer_to_parent=True,
     disallow_transfer_to_peers=True,
     output_schema=PRD,
@@ -59,6 +59,6 @@ pm_agent = Agent(
     model="gemini-2.5-pro-preview-05-06", # Capable model for document generation
     description="Expert Product Manager for creating PRDs, Epics, and defining MVP scope.",
     instruction=get_pm_master_instructions(),
-    tools=[memorize],
+    tools=[memorize, update_phase],
     sub_agents=[prd_agent, epics_agent]
 )

@@ -13,7 +13,7 @@ into a detailed technical design that will guide the implementation.
 
 from google.adk.agents import Agent
 from .prompts_architect import get_architect_master_instructions
-from ...tools.memory import memorize
+from ...tools.memory import memorize, update_phase
 from ...shared_libraries.types import ArchitectureDocumentation, json_response_config
 
 
@@ -63,6 +63,6 @@ architect_agent = Agent(
     model="gemini-2.5-pro-preview-05-06", # Needs strong reasoning for technical design
     description="Expert Solution/Software Architect for designing technical architecture and creating related documentation.",
     instruction=get_architect_master_instructions(),
-    tools=[memorize],
+    tools=[memorize, update_phase],
     sub_agents=[architecture_docs_agent]
 )

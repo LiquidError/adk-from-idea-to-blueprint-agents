@@ -12,7 +12,7 @@ architecture into actionable user stories for implementation.
 """
 from google.adk.agents import Agent
 from .prompts_posm import get_posm_master_instructions
-from ...tools.memory import memorize
+from ...tools.memory import memorize, update_phase
 from ...shared_libraries.types import ValidationSummary, UserStories, json_response_config
 
 # Import templates
@@ -59,6 +59,6 @@ posm_agent = Agent(
     model="gemini-2.5-pro-preview-05-06", # Needs to handle detailed document cross-referencing
     description="Technical Scrum Master / PO for validating plans and generating detailed developer stories.",
     instruction=get_posm_master_instructions(),
-    tools=[memorize],
+    tools=[memorize, update_phase],
     sub_agents=[validation_agent, stories_agent]
 )

@@ -13,7 +13,7 @@ for the entire project by defining the problem space and initial requirements.
 from google.adk.agents import Agent
 from .prompts_analyst import get_analyst_master_instructions, get_project_brief_template_markdown
 from ..search_agent.agent import search_agent
-from ...tools.memory import memorize
+from ...tools.memory import memorize, update_phase
 from ...shared_libraries.types import ProjectBrief, BrainstormingSummary, ResearchPrompt, ResearchFindings, json_response_config
 from google.adk.tools.agent_tool import AgentTool
 
@@ -85,6 +85,7 @@ analyst_agent = Agent(
     instruction=get_analyst_master_instructions(),
     tools=[
         memorize,
+        update_phase,
         search_agent_as_tool
     ],
     sub_agents=[

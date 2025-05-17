@@ -15,7 +15,7 @@ from google.genai import types
 from google.adk.agents.callback_context import CallbackContext
 
 from itbp_agent import prompt
-from itbp_agent.tools.memory import _load_precreated_config, memorize
+from itbp_agent.tools.memory import _load_precreated_config, memorize, update_phase
 from itbp_agent.shared_libraries.types import Phase
 from itbp_agent.shared_libraries.constants import CURRENT_PHASE
 
@@ -38,7 +38,7 @@ root_agent = Agent(
         posm_agent,
     ],
     before_agent_callback=_load_precreated_config,  # Use our new handler that shows the greeting
-    tools=[memorize],
+    tools=[memorize, update_phase],
     generate_content_config=types.GenerateContentConfig(
         temperature=0.2,  # Lower temperature for more consistent orchestration
         top_p=0.95,

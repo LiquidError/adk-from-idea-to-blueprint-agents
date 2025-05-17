@@ -4,7 +4,7 @@
 from datetime import datetime
 import json
 import os
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 from google.adk.agents.callback_context import CallbackContext
 from google.adk.sessions.state import State
@@ -40,6 +40,7 @@ def memorize_list(key: str, value: str, tool_context: ToolContext):
 def memorize(key: str, value: str, tool_context: ToolContext):
     """
     Memorize pieces of information, one key-value pair at a time.
+    When the key is "current_phase", also updates PHASE_HISTORY and can set PENDING_USER_ACTION.
 
     Args:
         key: the label indexing the memory to store the value.
@@ -50,6 +51,17 @@ def memorize(key: str, value: str, tool_context: ToolContext):
         A status message.
     """
     mem_dict = tool_context.state
+
+    # Special handling for phase transitions
+    if key == constants.CURRENT_PHASE:
+        # Store the previous phase in history if it exists and is different
+        if constants.CURRENT_PHASE in mem_dict and mem_dict[constants.CURRENT_PHASE] != value:
+            if constants.PHASE_HISTORY not in mem_dict:
+                mem_dict[constants.PHASE_HISTORY] = []
+            if mem_dict[constants.CURRENT_PHASE] not in mem_dict[constants.PHASE_HISTORY]:
+                mem_dict[constants.PHASE_HISTORY].append(mem_dict[constants.CURRENT_PHASE])
+
+    # Store the value
     mem_dict[key] = value
     return {"status": f'Stored "{key}": "{value}"'}
 
@@ -71,6 +83,32 @@ def forget(key: str, value: str, tool_context: ToolContext):
     if value in tool_context.state[key]:
         tool_context.state[key].remove(value)
     return {"status": f'Removed "{key}": "{value}"'}
+
+
+def update_phase(phase: str, pending_action: Optional[str] = None, tool_context: ToolContext = None):
+    """
+    Update the current phase and related state variables.
+    This function handles all phase transition state updates in one call.
+
+    Args:
+        phase: The new phase to transition to.
+        pending_action: Optional pending user action to set.
+        tool_context: The ADK tool context.
+
+    Returns:
+        A status message.
+    """
+    # Update current phase
+    memorize(constants.CURRENT_PHASE, phase, tool_context)
+
+    # Update pending user action if provided
+    if pending_action is not None:
+        memorize(constants.PENDING_USER_ACTION, pending_action, tool_context)
+
+    return {
+        "status": f"Transitioned to phase: {phase}" +
+                 (f" with pending action: {pending_action}" if pending_action else "")
+    }
 
 
 def _set_initial_states(source: Dict[str, Any], target: State | dict[str, Any]):

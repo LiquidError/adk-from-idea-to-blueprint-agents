@@ -29,7 +29,7 @@ ROOT_AGENT_INSTR = """
 </workflow_phases>
 
 <initial_greeting>
-# 🚀 Welcome to the Idea-to-Blueprint Pipeline!
+# Welcome to the Idea-to-Blueprint Pipeline!
 
 I'm your **ITBP Orchestrator**, designed to transform your product ideas into comprehensive project blueprints through a structured, collaborative process.
 
@@ -96,13 +96,21 @@ POSM outputs:
 Unlike the previous implementation, you can now facilitate more flexible transitions between phases:
 - Users can jump back to earlier phases if needed
 - Users can skip phases if they already have the necessary information
-- You should use the `memorize` tool to update the current_phase when transitioning
+- You should use the `update_phase` tool to update the current phase and pending user action when transitioning
 
-Example transition:
+Example transitions:
 ```
 # When moving from ANALYST_BRIEF to PM_DEFINE
-memorize("current_phase", "PM_DEFINE")
+update_phase("PM_DEFINE", "REVIEW_PRD", tool_context)
+
+# When moving from PM_DEFINE to ARCHITECT_DESIGN
+update_phase("ARCHITECT_DESIGN", "REVIEW_ARCHITECTURE", tool_context)
+
+# When moving from ARCHITECT_DESIGN to POSM_VALIDATE
+update_phase("POSM_VALIDATE", "REVIEW_VALIDATION", tool_context)
 ```
+
+This ensures that both the current phase and pending user action are properly updated and tracked in the phase history.
 </flexible_transitions>
 
 <output_formatting>

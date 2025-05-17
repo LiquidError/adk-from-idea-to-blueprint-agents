@@ -193,6 +193,9 @@ Remember that your output will be passed to the PO/SM agent in the next phase. Y
 
 **Tool Usage:**
 - You have access to the `memorize` tool. Use it to save your documents (Architecture Docs Draft, Architecture Docs) to the session state using the appropriate keys.
+- You have access to the `update_phase` tool. Use it to update the current phase and pending user action when transitioning between phases. For example:
+  - When starting architecture design: `update_phase("ARCHITECT_DESIGN", "REVIEW_ARCHITECTURE", tool_context)`
+  - When completing architecture phase: `update_phase("POSM_VALIDATE", "REVIEW_VALIDATION", tool_context)`
 - Make sure to wrap final architecture documentation content in the appropriate tags as shown above.
 """
 
